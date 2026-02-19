@@ -2,11 +2,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
+import LandingPage from './pages/LandingPage';
 import TaskBoard from './pages/TaskBoard';
 import CreateTask from './pages/CreateTask';
 import TaskDetails from './pages/TaskDetails';
 import Dashboard from './pages/Dashboard';
+import Developers from './pages/Developers';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -14,7 +18,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 5000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -24,14 +28,20 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 flex flex-col">
         <Header />
-        <Routes>
-          <Route path="/" element={<TaskBoard />} />
-          <Route path="/create" element={<CreateTask />} />
-          <Route path="/tasks/:id" element={<TaskDetails />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/tasks" element={<TaskBoard />} />
+            <Route path="/create" element={<CreateTask />} />
+            <Route path="/tasks/:id" element={<TaskDetails />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/developers" element={<Developers />} />
+            <Route path="/about" element={<AboutUs />} />
+          </Routes>
+        </main>
+        <Footer />
         <Toaster
           position="top-right"
           toastOptions={{
